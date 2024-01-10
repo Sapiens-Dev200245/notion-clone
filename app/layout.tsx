@@ -41,8 +41,7 @@ export default function RootLayout({
           <EdgeStoreProvider>
             <ThemeProvider
               attribute='class'
-              defaultTheme='system'
-              enableSystem
+              defaultTheme='light'
               disableTransitionOnChange
               storageKey='jotion-clone'
             >
