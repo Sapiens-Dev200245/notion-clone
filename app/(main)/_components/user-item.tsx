@@ -2,6 +2,7 @@
 
 import { ChevronsLeftRight } from "lucide-react";
 import { useUser, SignOutButton } from "@clerk/clerk-react";
+import { useClerk } from "@clerk/nextjs";
 
 import {
   Avatar,
@@ -14,9 +15,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export const UserItem = () => {
+  const router = useRouter();
+
   const { user } = useUser();
+  const { signOut } = useClerk();
+
+  const onReload = () => {
+    window.location.reload();
+  }
 
   return (
     <DropdownMenu>
@@ -58,9 +68,11 @@ export const UserItem = () => {
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild className="w-full cursor-pointer text-muted-foreground">
-          <SignOutButton>
-            Log out
-          </SignOutButton>
+          <Button
+            onClick={() => signOut(() => onReload())}
+          >
+            Sign out
+          </Button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
